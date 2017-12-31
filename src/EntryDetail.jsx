@@ -1,22 +1,29 @@
 import React from 'react';
+import yaml from 'js-yaml';
+var Prism = require('prismjs');
+
 
 class EntryDetail extends React.PureComponent {
   render(){
     const { entry } = this.props;
     return (
-      <div>
+      <div className="entry-detail">
         {
           entry && (
             <div>
-              <div>{entry.get('message')}</div>
-              <div>
-                <div>Payload</div>
-                <textarea value={JSON.stringify(entry.get('payload'))} />
-              </div>
-              <div>
-                <div>Exception</div>
-                <textarea value={JSON.stringify(entry.get('exception'))} />
-              </div>
+              <input type="text" readonly value={entry.get('message')} />
+              { entry.get('payload') && (
+                <div>
+                  <div>Payload</div>
+                  <div>{yaml.safeDump(entry.get('payload'))}</div>
+                </div>
+              )}
+              { entry.get('exception') && (
+                <div>
+                  <div>Exception</div>
+                  <textarea readOnly value={yaml.safeDump(entry.get('exception'))} />
+                </div>
+              )}
             </div>
           )
         }
