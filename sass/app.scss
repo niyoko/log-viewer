@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Lato;
+  font-size: 14px;
+}
+
+#react-root {
+  height: 100%;
+}
+
+.log-table {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  .log-entry {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border-bottom: 1px solid darkgray;
+
+    &.log-entry-selected {
+      background: rgba(128, 0, 128, 0.342) !important;
+    }
+
+    .log-entry-icon {
+      display: block;
+      width: 24px;
+      height: 24px;
+      padding: 4px;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-origin: content-box;
+    }
+
+    .log-entry-message {
+      padding-left: .4rem;
+    }
+
+    &.log-entry-even {
+      background: #EBF5FF;
+    }
+
+    &.log-entry-odd {
+      //background: #FEFEFE;
+    }
+
+    &.log-entry-info {
+      .log-entry-icon {
+        background-image: url(../img/information.png);
+      }
+    }
+
+    &.log-entry-debug {
+      //color: darkgray;
+
+      .log-entry-icon {
+        background-image: url(../img/bug.png);
+      }
+    }
+
+    &.log-entry-error {
+      color: #FB1414;
+
+      .log-entry-icon {
+        background-image: url(../img/cross.png);
+      }
+    }
+
+    &.log-entry-fatal {
+
+      .log-entry-message {
+        background: rgba(251, 20, 20, 0.274);
+      }
+      
+
+      .log-entry-icon {
+        background-image: url(../img/exclamation.png);
+      }
+    }
+
+    &.log-entry-warn {
+      color: #FE932B;
+
+      .log-entry-icon {
+        background-image: url(../img/error.png);
+      }
+    }
+  }
+}
