@@ -5,6 +5,8 @@ const logEntries = (state = List(), action) => {
   switch(action.type){
     case 'ADD_LOG_ENTRY':
       return state.push(action.entry);
+    case 'CLEAR_ENTRIES':
+      return List();
     default:
       return state;
   }
@@ -19,7 +21,7 @@ const knownLoggers = (state = Set(), action) => {
   }
 };
 
-const hiddenLogger = (state = Set(['ActiveRecord::Base']), action) => {
+const hiddenLogger = (state = Set(['ActiveRecord::Base', 'Rails', 'ActionView::Base']), action) => {
   switch(action.type){
     case 'HIDE_LOGGER':
       return state.add(action.name);

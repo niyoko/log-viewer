@@ -1,7 +1,5 @@
 import React from 'react';
 import yaml from 'js-yaml';
-var Prism = require('prismjs');
-
 
 class EntryDetail extends React.PureComponent {
   render(){
@@ -11,11 +9,15 @@ class EntryDetail extends React.PureComponent {
         {
           entry && (
             <div>
-              <input type="text" readonly value={entry.get('message')} />
+              { entry.get('message') && (
+                <div>
+                  <pre>{entry.get('message')}</pre>
+                </div>
+              )}
               { entry.get('payload') && (
                 <div>
                   <div>Payload</div>
-                  <div>{yaml.safeDump(entry.get('payload'))}</div>
+                  <textarea readOnly value={yaml.safeDump(entry.get('payload'))} />
                 </div>
               )}
               { entry.get('exception') && (

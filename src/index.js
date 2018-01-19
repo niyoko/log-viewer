@@ -25,6 +25,7 @@ import '../sass/app.scss';
 import 'react-virtualized/styles.css';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
+import 'highlight.js/styles/xcode.css';
 
 import createStore from './createStore';
 

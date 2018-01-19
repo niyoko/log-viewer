@@ -1,7 +1,8 @@
 import React from 'react';
 import { List, Column, SortDirection, AutoSizer } from 'react-virtualized';
 import { List as List2 } from 'immutable';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import hljs from 'highlight.js';
 
 
 class LogTable extends React.PureComponent {
@@ -24,9 +25,20 @@ class LogTable extends React.PureComponent {
     };
 
     const getMessage = entry => {
-      if(entry.get('message')) return entry.get('message');
-      //if(entry.get('exception') && entry.get('exception').message) return entry.exception.message;
-      return '(no message)';
+      if(entry.getIn(['payload', 'sql'])) {
+        const sql = entry.getIn(['payload', 'sql']);
+        const { value } = hljs.highlightAuto(sql, ['sql']);
+        return (
+          <div className="log-entry-message" style={{whiteSpace: 'nowrap'}} dangerouslySetInnerHTML={{__html: value}} />
+        )
+      }
+      if(entry.get('message')) {
+        return (
+          <div className="log-entry-message" style={{whiteSpace: 'nowrap'}}>
+            {entry.get('message')}
+          </div>
+        );
+      }
     };
 
     this._selectEntry = e => {
@@ -36,7 +48,7 @@ class LogTable extends React.PureComponent {
 
     this._rowRenderer = ({index, isScrolling, key, style}) => {
       const s = this.props.entries.size;
-      const d = this.props.entries.get(s-index-1);
+      const d = this.props.entries.get(index);
       const even = (index % 2) === 0;
 
       let cls = `log-entry log-entry-${d.get('level')}`;
@@ -50,14 +62,11 @@ class LogTable extends React.PureComponent {
       return (
         <div style={style} key={key} className={cls} data-id={d.get('id')} onClick={this._selectEntry}>
           <div className="log-entry-icon" />
-          <div className="log-entry-message" style={{whiteSpace: 'nowrap'}}>{getMessage(d)}</div>
+          <div className="log-entry-logger" style={{whiteSpace: 'nowrap'}}>{d.get('name')}</div>
+          {getMessage(d)}
         </div>
       );
     };
-  }
-
-  componentDidMount(){
-
   }
 
   render(){
@@ -79,7 +88,9 @@ class LogTable extends React.PureComponent {
 
     return (
       <div className="log-table">
-        <div>{this.props.xselectedEntry}</div>
+        <div className="toolbar">
+          <button onClick={this.props.clear}>Clear</button>
+        </div>
         <AutoSizer>
           {({width, height}) => (
             <List
@@ -113,7 +124,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    selectEntry: entry => dispatch({ type: 'SELECT_ENTRY', entry })
+    selectEntry: entry => dispatch({ type: 'SELECT_ENTRY', entry }),
+    clear: () => dispatch({ type: 'CLEAR_ENTRIES' })
   };
 }
 

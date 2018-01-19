@@ -46,14 +46,15 @@ body, html {
 
     .log-entry-message {
       padding-left: .4rem;
+      flex: 0 1 160px;
+    }
+
+    .log-entry-logger {
+      flex: 0 0 160px;
     }
 
     &.log-entry-even {
       background: #EBF5FF;
-    }
-
-    &.log-entry-odd {
-      //background: #FEFEFE;
     }
 
     &.log-entry-info {

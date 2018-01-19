@@ -26,6 +26,7 @@ class LoggerList extends React.PureComponent {
               <div className="form-check" key={x}>
                 <input className="form-check-input" type="checkbox"
                   data-name={x}
+                  checked={this.props.hiddenLogger.has(x)}
                   onChange={this._hiddenLoggerChange} />
                 <label className="form-check-label" style={{
                   textDecoration: this.props.hiddenLogger.has(x) ? 'line-through' : 'none'

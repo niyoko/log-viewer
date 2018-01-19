@@ -15,7 +15,7 @@ class App extends React.PureComponent {
   render(){
     return (
       <div style={{display: 'flex', width: '100%', height: '100%'}}>
-        <div style={{flex: '0 0 120px', position: 'relative'}}><LoggerList /></div>
+        <div style={{flex: '0 0 200px', position: 'relative'}}><LoggerList /></div>
         <div style={{flex: '1 1', display: 'flex', flexDirection: 'column'}}>
           <div style={{flex: '1 1', position: 'relative'}}><LogTable /></div>
           <div style={{flex: '0 0 200px', position: 'relative'}}><EntryDetail /></div>
